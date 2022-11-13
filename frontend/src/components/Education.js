@@ -1,11 +1,17 @@
-import { useState} from 'react';
+import React, { useState} from 'react';
 import {Select, MenuItem, FormControl, InputLabel, FormHelperText, Grid} from '@mui/material'
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 
-const Education = () => {
+function Education(props) {
     const [degree, setDegree] = useState('')
     const [specialization, setSpecialization] = useState('')
+
+    // dummy degree data
+    const degreeOptions = ['Computer Science', 'Electrical', 'ITM']
+
+    // dummy specialization data
+    const specializationOptions = ['Traditional Track', 'Data Science', 'Intelligent Systems']
 
     const updateDegree = (event) => {
         setDegree(event.target.value)
@@ -15,57 +21,55 @@ const Education = () => {
         setSpecialization(event.target.value)
     }
 
-    const updateNext = () => {
-        console.log("next button")
-    }
-
     return (
-        <div>
-        <FormControl required sx={{ m: 1, minWidth: 300 }}>
-        <InputLabel id="demo-simple-select-required-label">Degree</InputLabel>
-        <Select
-            labelId="demo-simple-select-required-label"
-            id="demo-simple-select-required"
-            value={degree}
-            label="Degree *"
-            onChange={updateDegree}
-        >   
-            <MenuItem value="">Select Degree</MenuItem>          
-            <MenuItem value={10}>Computer Science</MenuItem>
-            <MenuItem value={20}>Electrical</MenuItem>
-            <MenuItem value={30}>ITM</MenuItem>
-        </Select>
-        <FormHelperText>Required</FormHelperText>
-        </FormControl>
+        <React.Fragment>
+            <div className="sub-title fancy-text" >Hey {props.name}, Tell us your plans! </div>
+            <FormControl required sx={{ m: 1, minWidth: 300 }}>
+            <InputLabel id="demo-simple-select-required-label">Degree</InputLabel>
+            <Select
+                labelId="demo-simple-select-required-label"
+                id="demo-simple-select-required"
+                value={degree}
+                label="Degree *"
+                onChange={updateDegree}
+            >   
+                <MenuItem value="">Select Degree</MenuItem>          
+                <MenuItem value={degreeOptions[0]}>Computer Science</MenuItem>
+                <MenuItem value={degreeOptions[1]}>Electrical</MenuItem>
+                <MenuItem value={degreeOptions[2]}>ITM</MenuItem>
+            </Select>
+            <FormHelperText>Required</FormHelperText>
+            </FormControl>
 
-        <FormControl required sx={{ m: 1, minWidth: 300 }}>
-        <InputLabel id="demo-simple-select-required-label">Specialization</InputLabel>
-        <Select
-            labelId="demo-simple-select-required-label"
-            id="demo-simple-select-required"
-            value={specialization}
-            label="Specialization *"
-            onChange={updateSpecialization}
-        >   
-            <MenuItem value="">Select Specialization</MenuItem>          
-            <MenuItem value={10}>Traditional Track</MenuItem>
-            <MenuItem value={20}>Data Science</MenuItem>
-            <MenuItem value={30}>Intelligent Systems</MenuItem>
-        </Select>
-        <FormHelperText>Required</FormHelperText>
-        </FormControl>
-       
-        <Grid item style={{display:"flex"}}  justify="flex-end">
-            <Button 
-                variant="contained" 
-                endIcon={<SendIcon />}
-                onClick={() => updateNext()}>
-                Next
-            </Button>
-        </Grid>
-
-        </div>
+            <FormControl required sx={{ m: 1, minWidth: 300 }}>
+            <InputLabel id="demo-simple-select-required-label">Specialization</InputLabel>
+            <Select
+                labelId="demo-simple-select-required-label"
+                id="demo-simple-select-required"
+                value={specialization}
+                label="Specialization *"
+                onChange={updateSpecialization}
+            >   
+                <MenuItem value="">Select Specialization</MenuItem>          
+                <MenuItem value={specializationOptions[0]}>Traditional Track</MenuItem>
+                <MenuItem value={specializationOptions[1]}>Data Science</MenuItem>
+                <MenuItem value={specializationOptions[2]}>Intelligent Systems</MenuItem>
+                
+            </Select>
+            <FormHelperText>Required</FormHelperText>
+            </FormControl>
+        
+            <Grid item style={{display:"flex"}}  justify="flex-end">
+                <Button 
+                    variant="contained" 
+                    endIcon={<SendIcon />}
+                    onClick={(e) => props.onSubmitEducation({degree:degree, specialization:specialization})}>
+                    Next
+                </Button>
+            </Grid>
+        </React.Fragment>
     )
 }
 
 export default Education
+
