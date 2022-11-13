@@ -1,10 +1,12 @@
 import './App.css';
 import CourseCard from './CourseCard';
+import Education from './components/Education';
 
 function App() {
   return (
-    <div className="App">
-    </div>
+    <>
+    <Education />
+    </>
   );
 }
 
