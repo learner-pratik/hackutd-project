@@ -4,6 +4,13 @@ import CourseCard from './CourseCard';
 import Education from './Education';
 import Prerequisites from './Prerequisites';
 import Register from './Register';
+import axios from 'axios';
+
+
+
+
+
+
 
 function Home() {
   const [step,setStep] = useState(0);
@@ -13,6 +20,24 @@ function Home() {
   const [dob, setDob] = useState('');
   const [degree, setDegree] = useState('')
   const [specialization, setSpecialization] = useState('')
+  const [prereq,setPrereq] = useState([]);
+  const [selectedPrereq, setSelectedPrereq] = useState([]);
+   
+function populatePrereq(){
+    axios.get(`https://cb42-129-110-241-55.ngrok.io/pre_req/cs/traditional`)
+    .then(response => {
+  
+   
+    setPrereq(response.data);
+
+  
+    })
+  }  
+
+const onSubmitPrereq=(e)=>{
+  console.log(e.selected);
+  setSelectedPrereq(e.selected);
+}
 
   const onSubmitClick=(e)=>{ 
     setName(e.name); 
@@ -25,6 +50,8 @@ function Home() {
   const onSubmitEducation=(e)=>{
     setDegree(e.degree)
     setSpecialization(e.specialization)
+    populatePrereq();
+    if(prereq.length>0)
     setStep((step+1)%3);
   }
 
@@ -32,7 +59,7 @@ function Home() {
   <React.Fragment>  
   <div className="title fancy-text" > Welcome Future Comet!</div>
   {step===0 ? <Register onSubmitClick={onSubmitClick}/>: 
-   step===1 ? <Education name={name} onSubmitEducation={onSubmitEducation}/> : <Prerequisites />}
+   step===1 ? <Education name={name} onSubmitEducation={onSubmitEducation}/> : <Prerequisites prereq={prereq} onSubmit ={onSubmitPrereq} />}
  
 
   </React.Fragment>  

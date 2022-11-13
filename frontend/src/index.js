@@ -8,12 +8,13 @@ import Plan from './components/Plan';
 
 
 import Options from './components/Options';
+import Education from './components/Education';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
    <div className="main-bg"> 
-    <Plan/>
+    <Home/>
     </div>
   </React.StrictMode>
 );
