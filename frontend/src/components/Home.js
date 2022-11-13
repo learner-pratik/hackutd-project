@@ -1,6 +1,6 @@
 import React from 'react';
 import {useEffect, useState} from 'react';
-import CourseCard from '../CourseCard';
+import CourseCard from './CourseCard';
 import Education from './Education';
 import Prerequisites from './Prerequisites';
 import Register from './Register';

@@ -5,11 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Home from './components/Home';
 
+
+import Options from './components/Options';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
    <div className="main-bg"> 
-    <Home/>
+    <Options/>
     </div>
   </React.StrictMode>
 );

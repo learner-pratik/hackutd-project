@@ -32,7 +32,9 @@ code {
 .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
   border-color: white !important;
 }
-
+.grid{
+  margin-left: 10%;
+}
 
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
