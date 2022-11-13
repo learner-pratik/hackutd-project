@@ -9,29 +9,8 @@ import Typography from '@mui/material/Typography';
 
 function Options(props) {
 
-  let subs = [];
-  useEffect(() => {
-    props.courses.forEach(data => {
-      if (data.pre_req.length > 0) {
-        subs.append({
-          no: data.course,
-          name: data.title,
-          credit: 3,
-          pre_req: true,
-          pre_req_no: data.pre_req[0].course_no,
-          pre_req_name: data.pre_req[0].title,
-          pre_req_credit: 3,
-        })
-      } else {
-        subs.append({
-          no: data.course,
-          name: data.title,
-          credit: 3,
-          pre_req: false,
-        })
-      }
-    });
-  })
+  const subs = props.subs;
+  const elSubs = props.elSubs;
 
   const [selectedCourses, setSelectedCourses] = useState([])
   const [courseCount, setCourseCount] = useState(0)
@@ -45,11 +24,20 @@ function Options(props) {
     }
   }, [courseCount])
   
+
+ const sendToParent = ()=>{
+   console.log(JSON.stringify(selectedCourses));
+   props.onSubmitCourses({selectedCourses:selectedCourses});
+ }
+
+
+
   return (
     <React.Fragment>
       <div className="sub-title fancy-text" >
         Look at all these options!
       </div>
+
       <Card
         sx={{m:3}}
       >
@@ -76,6 +64,8 @@ function Options(props) {
         <Grid className="grid" item xs={4}>
           <div className="sub-title fancy-text" >Core Courses</div>
           {
+
+
             subs.map(sub =>
               sub.pre_req ? 
               <CourseCard 
@@ -107,7 +97,7 @@ function Options(props) {
         <Grid className="grid" item xs={4}>
           <div className="sub-title fancy-text" >Elective Courses </div>
           {
-            subs.map(sub =>
+            elSubs.map(sub =>
               sub.pre_req ? 
               <CourseCard 
                 courseNumber={sub.no}
@@ -150,7 +140,7 @@ function Options(props) {
           startIcon={<SaveIcon />}
           variant="contained"
           disabled={courseCount !== 11 ? true : false}
-          onClick={(e) => props.onSubmitCourses(selectedCourses)}
+          onClick={(e) => sendToParent()}
         >
           Save
         </Button>

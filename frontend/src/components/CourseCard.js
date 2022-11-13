@@ -93,7 +93,10 @@ function CourseCard(props) {
                                 onClick={() => {
                                     props.setCourseCount(props.courseCount+1)
                                     setAddedMainCourse(true)
-                                    props.setSelectedCourses([...props.selectedCourses, props.courseNumber])
+                                    props.setSelectedCourses([...props.selectedCourses, {
+                                        courseNumber: props.courseNumber,
+                                        courseName: props.courseName,
+                                    }])
                                 }}
                             >
                                 Add
@@ -188,7 +191,10 @@ function CourseCard(props) {
                                         setPreReqRequirement(false)
                                         setAddedPreReqCourse(true)
                                         setExpanded(false)
-                                        props.setSelectedCourses([...props.selectedCourses, props.courseNumber])
+                                        props.setSelectedCourses([...props.selectedCourses, {
+                                            courseNumber: props.courseNumber,
+                                            courseName: props.courseName,
+                                        }])
                                     }}
                                 >
                                     Add
