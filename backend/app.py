@@ -4,6 +4,8 @@ from flask_pymongo import PyMongo
 from requests.auth import HTTPBasicAuth
 import requests
 import yaml
+import json
+from ast import literal_eval
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/hack_utd"
@@ -95,15 +97,62 @@ def pre_req(degree, track):
 	else:
 		return {'message':"no data"}
 
-@app.route('/pre_req_update', methods=['POST'])
+@app.route('/pre_req_update', methods=['GET', 'POST'])
 def pre_req_update():
-	degree = request.form['degree']
-	track = request.form['track']
-	pre_req = request.form['pre_req']
-	c = get_pre_req(degree, track)
-	print(c)
+	d = json.loads(request.data.decode('utf-8'))
+	degree = d['degree']
+	track = d['track']
+	pre_req = d['pre_req']
+	school = get_school(degree)
+	class_level = 'Graduate' #this has to be changed in future based on the student
+	params = {'school':school, 'class_level':class_level}
+	tc = db.courses.find({"track":track})
+	tcl = list(tc)
+	url = URL+'course'
+	pre_req_reference_id = []
+	pre_req_json_data = []
+	if len(tcl) != 0:
+		tcl = tcl[0]
+		courses = tcl['courses']
+		course_number = []
+		for x in courses:
+			course_number.append(int(x['number']))
+		for x in course_number:
+			temp_req = []
+			params['course_number'] = x
+			res = requests.get(url=url, params=params, headers=headers)
+			res_list = res.json()['data'][0]['prerequisites']
+			if len(res_list) != 0:
+				l = res_list['options'][0]
+				if len(l)!=0:
+					if 'options' in l:
+						l = l['options']
+						for t in l:
+							if 'class_reference' in t and t['class_reference'] != None:
+								pre_req_reference_id.append(t['class_reference'])
+					elif 'class_reference' in l:
+						l = l['class_reference']
+						pre_req_reference_id.append(l)
+			for c in pre_req_reference_id:
+				if c in pre_req:
+					continue
+				temp_req.append(c)
+			pre_req_json_data.append({'course':x, 'title': res.json()['data'][0]['title'], 'pre_req':temp_req})
+		print(pre_req_json_data)
+		r = []
+		for d in pre_req_json_data:
+			cn = d['course']
+			title = d['title']
+			pt = d['pre_req']
+			t = []
+			for x in pt:
+				t.append(get_course_number(x))
+			r.append({'course':cn, 'title': title, 'pre_req':t})
+		return r
+	else:
+		return {'message':"no data"}
 
-def get_pre_req(degree, track):
+def get_courses(degree, track):
 	data = list(db.courses.find({"degree":degree, "track":track}))
 	course_data = []
 	if len(data) != 0:
@@ -123,13 +172,13 @@ def get_subject_prefix(deg):
 	if deg == 'cs':
 		return 'CS'
 	else :
-		return 'DU'
+		return 'OO'
 
 def get_school(deg) :
 	if deg == 'cs':
 		return "Erik Jonsson School of Engineering and Computer Science"
 	else:
-		return "hehe"
+		return "Oops"
 
 
 if __name__ == 'main':
