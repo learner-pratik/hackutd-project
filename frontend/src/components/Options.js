@@ -98,7 +98,7 @@ function Options(props) {
           <div className="sub-title fancy-text" >Elective Courses </div>
           {
             elSubs.map(sub =>
-              sub.pre_req ? 
+              sub.pre_req==true ? 
               <CourseCard 
                 courseNumber={sub.no}
                 courseName={sub.name}

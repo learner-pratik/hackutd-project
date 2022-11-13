@@ -28,6 +28,7 @@ function CourseCard(props) {
     const [addedPreReqCourse, setAddedPreReqCourse] = useState(false)
 
     const handleExpandClick = () => {
+        
         setExpanded(!expanded);
     };
 
@@ -147,7 +148,7 @@ function CourseCard(props) {
                                     borderRadius: 2,
                                     color: '#130732',
                                 }}
-                            >
+                            >    
                                 {props.preReqCourseNumber}
                             </Typography>
                         </Grid>

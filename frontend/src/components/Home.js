@@ -51,8 +51,8 @@ function Home() {
             name: dt.title,
             credit: 3,
             pre_req: true,
-            pre_req_no: dt.pre_req[0].course_no,
-            pre_req_name: dt.pre_req[0].title,
+            pre_req_no: dt.pre_req[0][0].course_number,
+            pre_req_name: dt.pre_req[0][0].title,
             pre_req_credit: 3,
           })
         }
@@ -62,8 +62,8 @@ function Home() {
                 name: dt.title,
                 credit: 3,
                 pre_req: true,
-                pre_req_no: dt.pre_req[0].course_no,
-                pre_req_name: dt.pre_req[0].title,
+                pre_req_no: dt.pre_req[0][0].course_number,
+                pre_req_name: dt.pre_req[0][0].title,
                 pre_req_credit: 3,
               })
 
@@ -91,7 +91,8 @@ function Home() {
         }
     }
       });
-
+      console.log(coresubs);
+      console.log(electivesubs);
       setSubs(coresubs);
       setElSubs(electivesubs);
 
