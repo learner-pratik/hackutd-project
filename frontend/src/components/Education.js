@@ -60,7 +60,7 @@ function Education(props) {
                     value={specialization}
                     label="Specialization *"
                     onChange={updateSpecialization}
-                    // className="dropdwn"
+                    className="dropdwn"
                 >   
                 
                     <MenuItem value="">Select Specialization</MenuItem>          
