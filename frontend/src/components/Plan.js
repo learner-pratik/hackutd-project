@@ -13,7 +13,7 @@ function Plan(props) {
     const subs= [{name:"DAA"},{name:"AOS"},{name:"ACN"},{name:"ALGO"},{name:"Compiler"}];
   return (
   <React.Fragment>
-  <div className="sub-title fancy-text" >Look at all these options! </div>
+  <div className="sub-title fancy-text" >The next 2 years look good! </div>
   </React.Fragment>
   )
  }
