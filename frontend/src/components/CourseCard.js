@@ -10,7 +10,11 @@ import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
-// same line
+// color schemes
+// #130732
+// #814FFF
+// 6B34F7
+// 
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -35,7 +39,7 @@ function CourseCard(props) {
             style={{backgroundColor: 'white'}}
             sx={{
                 m:3, 
-                minWidth:500,
+                minWidth:200,
                 borderRadius: 2,
                 borderColor: 'text.primary',
                 borderWidth:3,
@@ -47,10 +51,9 @@ function CourseCard(props) {
                         <Typography
                             variant='h5'
                             sx={{
-                                borderColor: 'text.primary',
+                                borderColor: '#130732',
                                 borderRadius: 2,
-                                boxShadow: 1,
-                                fontWeight: 'bold'
+                                color: '#130732'
                             }}
                         >
                             {props.courseNumber}
@@ -60,51 +63,54 @@ function CourseCard(props) {
                         <Typography 
                             variant='h5'
                             sx={{
-                                borderColor: 'text.primary',
+                                borderColor: '#130732',
                                 borderRadius: 2,
-                                boxShadow: 1,
-                                fontWeight: 'bold'
+                                color: '#130732'
                             }}
                         >
                             {props.courseName}
                         </Typography>
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={4}>
                         <Typography
                             variant='h5'
                             sx={{
-                                borderColor: 'text.primary',
+                                borderColor: '#130732',
                                 borderRadius: 2,
-                                boxShadow: 1,
-                                fontWeight: 'bold'
+                                color: '#130732'
                             }}
                         >
                             Credits: {props.courseCredits}
                         </Typography>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}></Grid>
+                    <Grid item xs={2}>
                         <CardActions>
                             <Button
-                                variant='contained' 
+                                sx={{
+                                    color:'#130732',
+                                    borderColor:'#130732',
+                                }}
+                                variant='outlined' 
                                 size='large'
                             >
                                 Add
                             </Button>
                         </CardActions>
                     </Grid>
-                    <Grid item xs={10}>
+                    <Grid item xs={4}>
                         <Typography
                             variant='h5'
                             sx={{
-                                borderColor: 'text.primary',
+                                borderColor: '#130732',
                                 borderRadius: 2,
-                                boxShadow: 1,
-                                fontWeight: 'bold'
+                                color: '#130732',
                             }}
                         >
                             Pre-Requisite not satisfied
                         </Typography>
                     </Grid>
+                    <Grid item xs={6}></Grid>
                     <Grid item xs={2}>
                         <CardActions>
                             <ExpandMore
@@ -125,10 +131,9 @@ function CourseCard(props) {
                         <Typography
                             variant='h5'
                             sx={{
-                                borderColor: 'text.primary',
+                                borderColor: '#130732',
                                 borderRadius: 2,
-                                boxShadow: 1,
-                                fontWeight: 'bold'
+                                color: '#130732',
                             }}
                         >
                             {props.courseNumber}
@@ -138,32 +143,35 @@ function CourseCard(props) {
                         <Typography 
                             variant='h5'
                             sx={{
-                                borderColor: 'text.primary',
+                                borderColor: '#130732',
                                 borderRadius: 2,
-                                boxShadow: 1,
-                                fontWeight: 'bold'
+                                color: '#130732',
                             }}
                         >
                             {props.courseName}
                         </Typography>
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={4}>
                         <Typography
                             variant='h5'
                             sx={{
-                                borderColor: 'text.primary',
+                                borderColor: '#130732',
                                 borderRadius: 2,
-                                boxShadow: 1,
-                                fontWeight: 'bold'
+                                color: '#130732',
                             }}
                         >
                             Credits: {props.courseCredits}
                         </Typography>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}></Grid>
+                    <Grid item xs={2}>
                         <CardActions>
                             <Button
-                                variant='contained' 
+                                sx={{
+                                    color:'#130732',
+                                    borderColor:'#130732',
+                                }}
+                                variant='outlined' 
                                 size='large'
                             >
                                 Add
