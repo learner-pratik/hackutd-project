@@ -3,10 +3,11 @@ import {Select, MenuItem, FormControl, InputLabel, FormHelperText, Grid} from '@
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 
+
 function Education(props) {
     const [degree, setDegree] = useState('')
     const [specialization, setSpecialization] = useState('')
-
+    
     // dummy degree data
     const degreeOptions = ['Computer Science', 'Electrical', 'ITM']
 
@@ -20,6 +21,7 @@ function Education(props) {
     const updateSpecialization = (event) => {
         setSpecialization(event.target.value)
     }
+      
 
     return (
         <React.Fragment>
@@ -33,10 +35,12 @@ function Education(props) {
                 label="Degree *"
                 onChange={updateDegree}
             >   
-                <MenuItem value="">Select Degree</MenuItem>          
-                <MenuItem value={degreeOptions[0]}>Computer Science</MenuItem>
-                <MenuItem value={degreeOptions[1]}>Electrical</MenuItem>
-                <MenuItem value={degreeOptions[2]}>ITM</MenuItem>
+                
+            <MenuItem value="">Select Degree</MenuItem>          
+            <MenuItem value={degreeOptions[0]}>Computer Science</MenuItem>
+            <MenuItem value={degreeOptions[1]}>Electrical</MenuItem>
+            <MenuItem value={degreeOptions[2]}>ITM</MenuItem>
+        
             </Select>
             <FormHelperText>Required</FormHelperText>
             </FormControl>
