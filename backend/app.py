@@ -11,8 +11,11 @@ def health():
 
 @app.route('/get_degree', methods=['GET'])
 def get_degree():
-	# degree = 
-	return jsonify(items=[dict(degree='Computer Science', specialization=['Traditional','Inteligent Systems', 'DataScience'])])
+	degree = mongo.db.degree.find({})
+	deg_list = list(degree)
+	for x in deg_list:
+		del x['_id']
+	return jsonify(deg_list)
 
 if __name__ == 'main':
 	app.run(threaded=True, port=5000)
