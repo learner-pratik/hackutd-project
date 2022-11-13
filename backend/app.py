@@ -3,14 +3,21 @@ from flask_api import status
 from flask_pymongo import PyMongo
 from requests.auth import HTTPBasicAuth
 import requests
+import yaml
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/hack_utd"
 mongo = PyMongo(app)
 db = mongo.db
 
+
+# load the config values from yaml file
+with open("config.yaml", "r") as stream:
+    data_loaded = yaml.safe_load(stream)
+config = data_loaded['APP']
+
 URL = 'https://api.utdnebula.com/'
-headers={'x-api-key':''}
+headers={'x-api-key':config['API_KEY']}
 
 @app.route('/', methods=['GET'])
 def health():
