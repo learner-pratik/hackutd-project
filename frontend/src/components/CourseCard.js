@@ -45,7 +45,7 @@ function CourseCard(props) {
                 <Grid container spacing={2}>
                     <Grid item xs={3}>
                         <Typography
-                            variant='h5'
+                            variant='h6'
                             sx={{
                                 borderColor: '#130732',
                                 borderRadius: 2,
@@ -57,7 +57,7 @@ function CourseCard(props) {
                     </Grid>
                     <Grid item xs={9}>
                         <Typography 
-                            variant='h5'
+                            variant='h6'
                             sx={{
                                 borderColor: '#130732',
                                 borderRadius: 2,
@@ -69,7 +69,7 @@ function CourseCard(props) {
                     </Grid>
                     <Grid item xs={4}>
                         <Typography
-                            variant='h5'
+                            variant='h6'
                             sx={{
                                 borderColor: '#130732',
                                 borderRadius: 2,
@@ -107,7 +107,7 @@ function CourseCard(props) {
                     preReqRequirement &&  
                     <Grid item xs={4}>
                         <Typography
-                            variant='h5'
+                            variant='h6'
                             sx={{
                                 borderColor: '#130732',
                                 borderRadius: 2,
@@ -141,7 +141,7 @@ function CourseCard(props) {
                     <Grid sx={{p:1}} container spacing={2}>
                         <Grid item xs={3}>
                             <Typography
-                                variant='h5'
+                                variant='h6'
                                 sx={{
                                     borderColor: '#130732',
                                     borderRadius: 2,
@@ -165,7 +165,7 @@ function CourseCard(props) {
                         </Grid>
                         <Grid item xs={4}>
                             <Typography
-                                variant='h5'
+                                variant='h6'
                                 sx={{
                                     borderColor: '#130732',
                                     borderRadius: 2,
