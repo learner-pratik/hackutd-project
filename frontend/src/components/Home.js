@@ -1,17 +1,10 @@
-import React from 'react';
-import {useEffect, useState} from 'react';
-import CourseCard from './CourseCard';
+import React, {useState} from 'react';
 import Education from './Education';
 import Options from './Options';
+import Plan from './Plan'
 import Prerequisites from './Prerequisites';
 import Register from './Register';
 import axios from 'axios';
-
-
-
-
-
-
 
 function Home() {
   const [step,setStep] = useState(0);
@@ -23,22 +16,35 @@ function Home() {
   const [specialization, setSpecialization] = useState('')
   const [prereq,setPrereq] = useState([]);
   const [selectedPrereq, setSelectedPrereq] = useState([]);
-   
-function populatePrereq(){
-    axios.get(`https://cb42-129-110-241-55.ngrok.io/pre_req/cs/traditional`)
+  const [courses, setCourses] = useState([]);
+  const [selectedCourses, setSelectedCourses] = useState([])
+
+  const BASE_URL = 'https://dc02-129-110-241-55.ngrok.io/'
+  
+  function populateCourses() {
+    const postData = {
+      degree: degree,
+      track: specialization,
+      pre_req: selectedPrereq
+    }
+    axios.post(`${BASE_URL}pre_req_update`, JSON.stringify(postData))
     .then(response => {
-  
-   
-    setPrereq(response.data);
+      setCourses(response.data)
+    }) 
+  }
 
-  
+  function populatePrereq(){
+    axios.get(`${BASE_URL}pre_req/cs/traditional`)
+    .then(response => {
+      setPrereq(response.data);
     })
-  }  
+  }
 
-const onSubmitPrereq=(e)=>{
-  console.log(e.selected);
-  setSelectedPrereq(e.selected);
-}
+  const onSubmitPrereq=(e)=>{
+    console.log(e.selected);
+    setSelectedPrereq(e.selected);
+    populateCourses()
+  }
 
   const onSubmitClick=(e)=>{ 
     setName(e.name); 
@@ -56,15 +62,24 @@ const onSubmitPrereq=(e)=>{
     setStep((step+1)%3);
   }
 
-  return (
-  <React.Fragment>  
-  <div className="title fancy-text" > Welcome Future Comet!</div>
-  {step===0 ? <Register onSubmitClick={onSubmitClick}/>: 
-   step===1 ? <Education name={name} onSubmitEducation={onSubmitEducation}/> : 
-   step=== 2 ? <Prerequisites onSubmitPrereq={onSubmitPrereq}/> : <Options />}
- 
-  </React.Fragment>  
+  const onSubmitCourses = (e) => {
+    setSelectedCourses(e.selectedCourses)
+    setStep((step+1)%3);
+  }
 
+  return (
+    <React.Fragment>  
+      <div className="title fancy-text" > Welcome Future Comet!</div>
+      {
+        {
+          0: <Register onSubmitClick={onSubmitClick}/>,
+          1: <Education name={name} onSubmitEducation={onSubmitEducation}/>,
+          2: <Prerequisites onSubmitPrereq={onSubmitPrereq}/>,
+          3: <Options courses={courses} onSubmitCourses={onSubmitCourses} />,
+          4: <Plan selectedCourses={selectedCourses} />
+        }[step]
+      }
+    </React.Fragment>  
   );
 }
 

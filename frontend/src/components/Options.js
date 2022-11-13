@@ -4,36 +4,36 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/system/Unstable_Grid/Grid';
 import CourseCard from './CourseCard';
-import CardActions from '@mui/material/CardActions';
 import SaveIcon from '@mui/icons-material/Save';
 import Typography from '@mui/material/Typography';
 
 function Options(props) {
 
-  const subs= [
-    {
-      no:"CS6363",
-      name:"Design and Analysis of Algorithms",
-      credit:"3",
-      pre_req:true,
-      pre_req_no:"CS5343",
-      pre_req_name:"Algo and DS",
-      pre_req_credit:"3"
-    },
-    {no:"CS6360", name:"Advanced Operating Systems", credit:'3', pre_req:false},
-    {
-      no:"CS6365",
-      name:"Advanced Computer Networks",
-      credit:'3',
-      pre_req:true,
-      pre_req_no:"CS5340",
-      pre_req_name:"Computer Networks",
-      pre_req_credit:"3"
-    },
-    {no:"CS6361", name:"Machine Learning", credit:'3', pre_req:false},
-    {no:"CS6370", name:"Database Design", credit:'3', pre_req:false},
-  ];
+  let subs = [];
+  useEffect(() => {
+    props.courses.forEach(data => {
+      if (data.pre_req.length > 0) {
+        subs.append({
+          no: data.course,
+          name: data.title,
+          credit: 3,
+          pre_req: true,
+          pre_req_no: data.pre_req[0].course_no,
+          pre_req_name: data.pre_req[0].title,
+          pre_req_credit: 3,
+        })
+      } else {
+        subs.append({
+          no: data.course,
+          name: data.title,
+          credit: 3,
+          pre_req: false,
+        })
+      }
+    });
+  })
 
+  const [selectedCourses, setSelectedCourses] = useState([])
   const [courseCount, setCourseCount] = useState(0)
   const [creditCount, setCreditCount] = useState(-3)
   const isMounted = useRef(false);
@@ -44,8 +44,6 @@ function Options(props) {
       isMounted.current = true
     }
   }, [courseCount])
-
-  // center save button and disable till all courses are not selected
   
   return (
     <React.Fragment>
@@ -90,6 +88,8 @@ function Options(props) {
                 preReqCourseCredits={sub.pre_req_credit}
                 courseCount={courseCount}
                 setCourseCount={setCourseCount}
+                selectedCourses={selectedCourses}
+                setSelectedCourses={setSelectedCourses}
               /> : 
               <CourseCard 
                 courseNumber={sub.no}
@@ -98,6 +98,8 @@ function Options(props) {
                 preReq={sub.pre_req}
                 courseCount={courseCount}
                 setCourseCount={setCourseCount}
+                selectedCourses={selectedCourses}
+                setSelectedCourses={setSelectedCourses}
               />
             )
           }
@@ -117,8 +119,8 @@ function Options(props) {
                 preReqCourseCredits={sub.pre_req_credit}
                 courseCount={courseCount}
                 setCourseCount={setCourseCount}
-                creditCount={creditCount}
-                setCreditCount={setCreditCount}
+                selectedCourses={selectedCourses}
+                setSelectedCourses={setSelectedCourses}
               /> : 
               <CourseCard 
                 courseNumber={sub.no}
@@ -127,8 +129,8 @@ function Options(props) {
                 preReq={sub.pre_req}
                 courseCount={courseCount}
                 setCourseCount={setCourseCount}
-                creditCount={creditCount}
-                setCreditCount={setCreditCount}
+                selectedCourses={selectedCourses}
+                setSelectedCourses={setSelectedCourses}
               />
             )
           }
@@ -148,6 +150,7 @@ function Options(props) {
           startIcon={<SaveIcon />}
           variant="contained"
           disabled={courseCount !== 11 ? true : false}
+          onClick={(e) => props.onSubmitCourses(selectedCourses)}
         >
           Save
         </Button>
