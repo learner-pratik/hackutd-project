@@ -39,9 +39,7 @@ function Education(props) {
                 
             <MenuItem value="">Select Degree</MenuItem>          
             <MenuItem value={degreeOptions[0]}>Computer Science</MenuItem>
-            <MenuItem value={degreeOptions[1]}>Electrical</MenuItem>
-            <MenuItem value={degreeOptions[2]}>ITM</MenuItem>
-        
+            
             </Select>
             <FormHelperText>Required</FormHelperText>
             </FormControl>

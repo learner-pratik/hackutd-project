@@ -3,14 +3,21 @@ from flask_api import status
 from flask_pymongo import PyMongo
 from requests.auth import HTTPBasicAuth
 import requests
+import yaml
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/hack_utd"
 mongo = PyMongo(app)
 db = mongo.db
 
+
+# load the config values from yaml file
+with open("config.yaml", "r") as stream:
+    data_loaded = yaml.safe_load(stream)
+config = data_loaded['APP']
+
 URL = 'https://api.utdnebula.com/'
-headers={'x-api-key':'AIzaSyAivCjcxnDD4GyHVUgrpv2f2ASD-uXyz0s'}
+headers={'x-api-key':config['API_KEY']}
 
 @app.route('/', methods=['GET'])
 def health():
@@ -45,15 +52,6 @@ def login():
 	if pwd != password:
 		return "Password wrong", status.HTTP_400_BAD_REQUEST
 	return jsonify(details[0])
-
-@app.route('/track_course/<track>', methods=['GET'])
-def get_pre_req(track):
-	data = list(db.courses.find({"track":track}))
-	course_data = []
-	if len(data) != 0:
-		course_data = data[0]["courses"]
-	return jsonify(course_data)
-
 
 @app.route('/pre_req/<degree>/<track>', methods=['GET'])
 def pre_req(degree, track):
@@ -97,7 +95,20 @@ def pre_req(degree, track):
 	else:
 		return {'message':"no data"}
 
+@app.route('/pre_req_update', methods=['POST'])
+def pre_req_update():
+	degree = request.form['degree']
+	track = request.form['track']
+	pre_req = request.form['pre_req']
+	c = get_pre_req(degree, track)
+	print(c)
 
+def get_pre_req(degree, track):
+	data = list(db.courses.find({"degree":degree, "track":track}))
+	course_data = []
+	if len(data) != 0:
+		course_data = data[0]["courses"]
+	return course_data
 
 def get_course_number(ref_id):
 	url = URL + 'course/'
@@ -118,7 +129,7 @@ def get_school(deg) :
 	if deg == 'cs':
 		return "Erik Jonsson School of Engineering and Computer Science"
 	else:
-		return "you are dum"
+		return "hehe"
 
 
 if __name__ == 'main':

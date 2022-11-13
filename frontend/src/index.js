@@ -5,8 +5,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Home from './components/Home';
 import Plan from './components/Plan';
-
-
 import Options from './components/Options';
 import Education from './components/Education';
 

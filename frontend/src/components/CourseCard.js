@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -22,7 +22,10 @@ const ExpandMore = styled((props) => {
 }));
 
 function CourseCard(props) {
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = useState(false)
+    const [preReqRequirement, setPreReqRequirement] = useState(props.preReq)
+    const [addedMainCourse, setAddedMainCourse] = useState(false)
+    const [addedPreReqCourse, setAddedPreReqCourse] = useState(false)
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -30,7 +33,6 @@ function CourseCard(props) {
 
     return (
         <Card
-            style={{backgroundColor: 'white'}}
             sx={{
                 m:3, 
                 minWidth:200,
@@ -39,7 +41,7 @@ function CourseCard(props) {
                 borderWidth:3,
             }}
         >
-            <CardContent>
+            <CardContent className='card' style={{backgroundColor: 'white'}}>
                 <Grid container spacing={2}>
                     <Grid item xs={3}>
                         <Typography
@@ -77,8 +79,8 @@ function CourseCard(props) {
                             Credits: {props.courseCredits}
                         </Typography>
                     </Grid>
-                    <Grid item xs={6}></Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={5}></Grid>
+                    <Grid item xs={3}>
                         <CardActions>
                             <Button
                                 sx={{
@@ -87,13 +89,18 @@ function CourseCard(props) {
                                 }}
                                 variant='outlined' 
                                 size='medium'
+                                disabled={preReqRequirement || addedMainCourse}
+                                onClick={() => {
+                                    props.setCourseCount(props.courseCount+1)
+                                    setAddedMainCourse(true)
+                                }}
                             >
                                 Add
                             </Button>
                         </CardActions>
                     </Grid>
                     {
-                    props.preReq &&  
+                    preReqRequirement &&  
                     <Grid item xs={4}>
                         <Typography
                             variant='h5'
@@ -107,9 +114,9 @@ function CourseCard(props) {
                         </Typography>
                     </Grid>
                     }
-                    {props.preReq && <Grid item xs={6}></Grid>}
+                    {preReqRequirement && <Grid item xs={6}></Grid>}
                     {
-                    props.preReq && 
+                    preReqRequirement && 
                     <Grid item xs={2}>
                         <CardActions>
                             <ExpandMore
@@ -126,59 +133,68 @@ function CourseCard(props) {
                 </Grid>
             </CardContent>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <Grid sx={{p:1}} container spacing={2}>
-                    <Grid item xs={3}>
-                        <Typography
-                            variant='h5'
-                            sx={{
-                                borderColor: '#130732',
-                                borderRadius: 2,
-                                color: '#130732',
-                            }}
-                        >
-                            {props.preReqCourseNumber}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={9}>
-                        <Typography 
-                            variant='h5'
-                            sx={{
-                                borderColor: '#130732',
-                                borderRadius: 2,
-                                color: '#130732',
-                            }}
-                        >
-                            {props.preReqCourseName}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Typography
-                            variant='h5'
-                            sx={{
-                                borderColor: '#130732',
-                                borderRadius: 2,
-                                color: '#130732',
-                            }}
-                        >
-                            Credits: {props.preReqCourseCredits}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={6}></Grid>
-                    <Grid item xs={2}>
-                        <CardActions>
-                            <Button
+                <CardContent className='card' style={{backgroundColor: 'white'}}>
+                    <Grid sx={{p:1}} container spacing={2}>
+                        <Grid item xs={3}>
+                            <Typography
+                                variant='h5'
                                 sx={{
-                                    color:'#130732',
-                                    borderColor:'#130732',
+                                    borderColor: '#130732',
+                                    borderRadius: 2,
+                                    color: '#130732',
                                 }}
-                                variant='outlined' 
-                                size='medium'
                             >
-                                Add
-                            </Button>
-                        </CardActions>
+                                {props.preReqCourseNumber}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={9}>
+                            <Typography 
+                                variant='h5'
+                                sx={{
+                                    borderColor: '#130732',
+                                    borderRadius: 2,
+                                    color: '#130732',
+                                }}
+                            >
+                                {props.preReqCourseName}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Typography
+                                variant='h5'
+                                sx={{
+                                    borderColor: '#130732',
+                                    borderRadius: 2,
+                                    color: '#130732',
+                                }}
+                            >
+                                Credits: {props.preReqCourseCredits}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={5}></Grid>
+                        <Grid item xs={3}>
+                            <CardActions>
+                                <Button
+                                    sx={{
+                                        color:'#130732',
+                                        borderColor:'#130732',
+                                    }}
+                                    variant='outlined' 
+                                    size='medium'
+                                    disabled={addedPreReqCourse}
+                                    onClick={() => {
+                                        props.setCourseCount(props.courseCount+1)
+                                        setPreReqRequirement(false)
+                                        setAddedPreReqCourse(true)
+                                        setExpanded(false)
+                                    }}
+                                >
+                                    Add
+                                </Button>
+                            </CardActions>
+                        </Grid>
                     </Grid>
-                </Grid>
+                </CardContent>
             </Collapse>
         </Card>
     )
