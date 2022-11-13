@@ -9,7 +9,7 @@ import React from 'react';
 
 const Prerequisites = (props) => {
     const [checked, setChecked] = React.useState([]);
-    const prereq = ['Algorithms and Data Structures', 'Computer Networks', 'Operating Systems']
+    const prereq = props.prereq
     const tempFunction = () => {
         console.log(checked);
         props.onSubmitPrereq({selected:checked});
