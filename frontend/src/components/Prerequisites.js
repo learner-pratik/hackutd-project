@@ -12,12 +12,9 @@ import React from 'react';
 const Prerequisites = (props) => {
     const [checked, setChecked] = React.useState([]);
 
-    const tempFunction = () => {
-        console.log("next page")
-    }
-
     const handleToggle = (value) => () => {
         const currentIndex = checked.indexOf(value);
+
         const newChecked = [...checked];
 
         if (currentIndex === -1) {
@@ -25,9 +22,9 @@ const Prerequisites = (props) => {
         } else {
             newChecked.splice(currentIndex, 1);
         }
-
+        
         setChecked(newChecked);
-  };
+    };
 
     return (
         <React.Fragment>        
@@ -60,7 +57,7 @@ const Prerequisites = (props) => {
                 <Button 
                     variant="contained" 
                     endIcon={<SendIcon />}
-                    onClick={(e) => tempFunction()}>
+                    onClick={(e) => props.onSubmitPrereq({checked:checked})}>
                     Next
                 </Button>
     </Grid>
@@ -68,4 +65,5 @@ const Prerequisites = (props) => {
     )
 }
 
+                   
 export default Prerequisites
