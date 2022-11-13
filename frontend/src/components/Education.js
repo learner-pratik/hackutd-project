@@ -56,6 +56,7 @@ function Education(props) {
                 <Select
                     labelId="demo-simple-select-required-label"
                     id="demo-simple-select-required"
+                    className="dropdwn"
                     value={specialization}
                     label="Specialization *"
                     onChange={updateSpecialization}
@@ -69,7 +70,13 @@ function Education(props) {
             <FormHelperText sx={{color:"white"}}>*Required</FormHelperText>
             </FormControl>
 
-            <Grid item style={{display:"flex"}}  justifyContent="start" sx={{m:3}}>
+            <Grid
+                item 
+                style={{display:"flex"}} 
+                alignItems="center" 
+                justifyContent="center" 
+                sx={{m:3}}
+            >
                 <Button 
                     variant="contained" 
                     endIcon={<SendIcon />}
