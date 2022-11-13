@@ -65,7 +65,6 @@ function Options(props) {
           <div className="sub-title fancy-text" >Core Courses</div>
           {
 
-
             subs.map(sub =>
               sub.pre_req ? 
               <CourseCard 
