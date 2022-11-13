@@ -69,9 +69,7 @@ const Prerequisites = (props) => {
                     onClick={(e) =>tempFunction()}>
                     Next
                 </Button>
-            
     </Grid>
-     
         </React.Fragment>
     )
 }

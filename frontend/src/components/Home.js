@@ -125,6 +125,9 @@ function Home() {
   }
 
   const onSubmitEducation=(e)=>{
+
+    console.log("inside home from education step == ", e)
+
     setDegree(e.degree)
     setSpecialization(e.specialization)
     populatePrereq();
@@ -137,6 +140,7 @@ function Home() {
     console.log(e.selectedCourses);
     setStep((step+1)%5);
   }
+
 
   return (
     <React.Fragment>  
