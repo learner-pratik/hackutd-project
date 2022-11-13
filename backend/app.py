@@ -111,12 +111,16 @@ def pre_req_update():
 	url = URL+'course'
 	pre_req_reference_id = []
 	pre_req_json_data = []
+	core = dict()
+	elec = dict()
 	if len(tcl) != 0:
 		tcl = tcl[0]
 		courses = tcl['courses']
 		course_number = []
 		for x in courses:
 			course_number.append(int(x['number']))
+			core[int(x['number'])] = x['core']
+			elec[int(x['number'])] = x['elective']
 		for x in course_number:
 			temp_req = []
 			params['course_number'] = x
@@ -137,8 +141,7 @@ def pre_req_update():
 				if c in pre_req:
 					continue
 				temp_req.append(c)
-			pre_req_json_data.append({'course':x, 'title': res.json()['data'][0]['title'], 'pre_req':temp_req})
-		print(pre_req_json_data)
+			pre_req_json_data.append({"course":x, "title": res.json()['data'][0]['title'], "pre_req":temp_req})
 		r = []
 		for d in pre_req_json_data:
 			cn = d['course']
@@ -146,11 +149,11 @@ def pre_req_update():
 			pt = d['pre_req']
 			t = []
 			for x in pt:
-				t.append(get_course_number(x))
-			r.append({'course':cn, 'title': title, 'pre_req':t})
+				t.append(get_course_number([x]))
+			r.append({"course":cn, "title": title, "pre_req":t, "core":core[cn], "elective":elec[cn]})
 		return r
 	else:
-		return {'message':"no data"}
+		return {"message":"no data"}
 
 def get_courses(degree, track):
 	data = list(db.courses.find({"degree":degree, "track":track}))
@@ -165,7 +168,7 @@ def get_course_number(ref_id):
 	for p in ref_id:
 		res = requests.get(url+p, headers=headers)
 		data = res.json()['data']
-		pre_req.append({'title':data['title'],'course_reference':data['_id'],'course_number':data['course_number']})
+		pre_req.append({"title":data['title'],"course_reference":data['_id'],"course_number":data['course_number']})
 	return pre_req
 
 def get_subject_prefix(deg):
