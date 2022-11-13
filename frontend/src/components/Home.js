@@ -25,13 +25,9 @@ function Home() {
   const [selectedPrereq, setSelectedPrereq] = useState([]);
    
 function populatePrereq(){
-    axios.get(`https://cb42-129-110-241-55.ngrok.io/pre_req/cs/traditional`)
+    axios.get(`https://4f59-129-110-241-55.ngrok.io/pre_req/cs/traditional`)
     .then(response => {
-  
-   
-    setPrereq(response.data);
-
-  
+      setPrereq(response.data);
     })
   }  
 
@@ -49,12 +45,16 @@ const onSubmitPrereq=(e)=>{
   }
 
   const onSubmitEducation=(e)=>{
+
+    console.log("inside home from education step == ", e)
+
     setDegree(e.degree)
     setSpecialization(e.specialization)
     populatePrereq();
-    if(prereq.length>0)
-    setStep((step+1)%3);
+    //if(prereq.length>0)
+    setStep((step+1)%4);
   }
+
 
   return (
   <React.Fragment>  

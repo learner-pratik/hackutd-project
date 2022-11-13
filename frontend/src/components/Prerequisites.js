@@ -69,9 +69,7 @@ const Prerequisites = (props) => {
                     onClick={(e) => props.onSubmitPrereq({checked:checked})}>
                     Next
                 </Button>
-            
     </Grid>
-     
         </React.Fragment>
     )
 }
