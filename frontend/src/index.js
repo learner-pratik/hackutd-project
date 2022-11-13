@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Home from './components/Home';
+import Plan from './components/Plan';
 
 
 import Options from './components/Options';
@@ -12,7 +13,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
    <div className="main-bg"> 
-    <Options/>
+    <Plan/>
     </div>
   </React.StrictMode>
 );
