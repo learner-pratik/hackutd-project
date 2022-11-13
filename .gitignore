@@ -32,3 +32,4 @@ web-build/
 # Server
 ngrok
 
+config.yaml
