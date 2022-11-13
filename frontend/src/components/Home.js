@@ -21,13 +21,14 @@ function Home() {
 
   const BASE_URL = 'https://dc02-129-110-241-55.ngrok.io/'
   
-  function populateCourses() {
+  function populateCourses( selcourses) {
+    
     const postData = {
       degree: degree,
       track: specialization,
-      pre_req: selectedPrereq
+      pre_req: selcourses,
     }
-    axios.post(`${BASE_URL}pre_req_update`, JSON.stringify(postData))
+    axios.post(`${BASE_URL}pre_req_update`, postData)
     .then(response => {
       setCourses(response.data)
     }) 
@@ -43,7 +44,8 @@ function Home() {
   const onSubmitPrereq=(e)=>{
     console.log(e.selected);
     setSelectedPrereq(e.selected);
-    populateCourses()
+    
+    populateCourses(e.selected)
   }
 
   const onSubmitClick=(e)=>{ 
@@ -74,7 +76,7 @@ function Home() {
         {
           0: <Register onSubmitClick={onSubmitClick}/>,
           1: <Education name={name} onSubmitEducation={onSubmitEducation}/>,
-          2: <Prerequisites onSubmitPrereq={onSubmitPrereq}/>,
+          2: <Prerequisites prereq={prereq} onSubmitPrereq={onSubmitPrereq}/>,
           3: <Options courses={courses} onSubmitCourses={onSubmitCourses} />,
           4: <Plan selectedCourses={selectedCourses} />
         }[step]

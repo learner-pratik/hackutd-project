@@ -18,7 +18,7 @@ const Prerequisites = (props) => {
     const prereq = props.prereq;
     const tempFunction = () => {
         console.log(checked);
-        props.onSubmit({selected:checked});
+        props.onSubmitPrereq({selected:checked});
         
     }
 
@@ -66,7 +66,7 @@ const Prerequisites = (props) => {
                 <Button 
                     variant="contained" 
                     endIcon={<SendIcon />}
-                    onClick={(e) => props.onSubmitPrereq({checked:checked})}>
+                    onClick={(e) =>tempFunction()}>
                     Next
                 </Button>
             
