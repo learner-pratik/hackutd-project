@@ -44,7 +44,6 @@ function Education(props) {
                     onChange={updateDegree}
                     className="dropdwn"
                 >   
-                
                 <MenuItem value="">Select Degree</MenuItem>          
                 <MenuItem value={degreeOptions[0]}>Computer Science</MenuItem>
                 </Select>
@@ -60,14 +59,11 @@ function Education(props) {
                     value={specialization}
                     label="Specialization *"
                     onChange={updateSpecialization}
-                    className="dropdwn"
                 >   
-                
                     <MenuItem value="">Select Specialization</MenuItem>          
                     <MenuItem value={specializationOptions[0]}>Traditional Track</MenuItem>
                     <MenuItem value={specializationOptions[1]}>Data Science</MenuItem>
                     <MenuItem value={specializationOptions[2]}>Intelligent Systems</MenuItem>
-                    
                 </Select>
 
             <FormHelperText sx={{color:"white"}}>*Required</FormHelperText>

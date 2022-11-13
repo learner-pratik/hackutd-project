@@ -28,7 +28,6 @@ function CourseCard(props) {
     const [addedPreReqCourse, setAddedPreReqCourse] = useState(false)
 
     const handleExpandClick = () => {
-        
         setExpanded(!expanded);
     };
 

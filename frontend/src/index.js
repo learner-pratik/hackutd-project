@@ -1,18 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Home from './components/Home';
-import Plan from './components/Plan';
-import Options from './components/Options';
-import Education from './components/Education';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-   <div className="main-bg"> 
-    <Home/>
+    <div className="main-bg"> 
+      <Home/>
     </div>
   </React.StrictMode>
 );

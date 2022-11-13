@@ -8,13 +8,13 @@ import SaveIcon from '@mui/icons-material/Save';
 import Typography from '@mui/material/Typography';
 
 function Options(props) {
-
   const subs = props.subs;
   const elSubs = props.elSubs;
 
   const [selectedCourses, setSelectedCourses] = useState([])
   const [courseCount, setCourseCount] = useState(0)
   const [creditCount, setCreditCount] = useState(-3)
+  
   const isMounted = useRef(false);
   useEffect(() => {
     if (isMounted.current) {
@@ -24,20 +24,16 @@ function Options(props) {
     }
   }, [courseCount])
   
-
- const sendToParent = ()=>{
-   console.log(JSON.stringify(selectedCourses));
-   props.onSubmitCourses({selectedCourses:selectedCourses});
- }
-
-
+  const sendToParent = ()=>{
+    console.log(JSON.stringify(selectedCourses));
+    props.onSubmitCourses({selectedCourses:selectedCourses});
+  }
 
   return (
     <React.Fragment>
       <div className="sub-title fancy-text" >
         Look at all these options!
       </div>
-
       <Card
         sx={{m:3}}
       >
@@ -64,7 +60,6 @@ function Options(props) {
         <Grid className="grid" item xs={4}>
           <div className="sub-title fancy-text" >Core Courses</div>
           {
-
             subs.map(sub =>
               sub.pre_req ? 
               <CourseCard 

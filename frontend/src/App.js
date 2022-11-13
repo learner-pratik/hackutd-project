@@ -4,7 +4,7 @@ import Education from './components/Education';
 function App() {
   return (
     <>
-    <Education />
+      <Education />
     </>
   );
 }

@@ -5,7 +5,6 @@ import Plan from './Plan'
 import Prerequisites from './Prerequisites';
 import Register from './Register';
 import axios from 'axios';
-import { drawerClasses } from '@mui/material';
 
 function Home() {
   const [step,setStep] = useState(0);
@@ -25,27 +24,20 @@ function Home() {
   const BASE_URL = 'https://e323-129-110-241-55.ngrok.io/'
   
   function populateCourses( selcourses) {
-
-    
-    
     const postData = {
       degree: 'cs',
       track: 'traditional',
       pre_req: selcourses,
     }
+
     axios.post(`${BASE_URL}pre_req_update`, postData)
     .then(response => {
       setCourses(response.data)
-     const coresubs = [];
-     const electivesubs= [];
-     response.data.forEach(dt => {
+      const coresubs = [];
+      const electivesubs= [];
+      response.data.forEach(dt => {
         if (dt.pre_req.length > 0 ) {
-
-          
-
-
-         if(dt.core=='yes')
-          {
+         if(dt.core=='yes') {
           coresubs.push({
             no: dt.course,
             name: dt.title,
@@ -55,33 +47,26 @@ function Home() {
             pre_req_name: dt.pre_req[0][0].title,
             pre_req_credit: 3,
           })
-        }
-        else {
-            electivesubs.push({
-                no: dt.course,
-                name: dt.title,
-                credit: 3,
-                pre_req: true,
-                pre_req_no: dt.pre_req[0][0].course_number,
-                pre_req_name: dt.pre_req[0][0].title,
-                pre_req_credit: 3,
-              })
-
-        }
-
         } else {
-
-         if(dt.core=='yes')
-           {
+          electivesubs.push({
+              no: dt.course,
+              name: dt.title,
+              credit: 3,
+              pre_req: true,
+              pre_req_no: dt.pre_req[0][0].course_number,
+              pre_req_name: dt.pre_req[0][0].title,
+              pre_req_credit: 3,
+            })
+        }
+        } else {
+         if(dt.core=='yes') {
           coresubs.push({ 
             no: dt.course,
             name: dt.title,
             credit: 3,
             pre_req: false,
           })
-        }
-
-        else {
+        } else {
             electivesubs.push({ 
                 no: dt.course,
                 name: dt.title,
@@ -91,13 +76,8 @@ function Home() {
         }
     }
       });
-      console.log(coresubs);
-      console.log(electivesubs);
       setSubs(coresubs);
       setElSubs(electivesubs);
-
-
-
     }) 
     setStep((step+1)%5);
   }
@@ -110,9 +90,7 @@ function Home() {
   }
 
   const onSubmitPrereq=(e)=>{
-    console.log(e.selected);
     setSelectedPrereq(e.selected);
-    
     populateCourses(e.selected)
   }
 
@@ -125,13 +103,9 @@ function Home() {
   }
 
   const onSubmitEducation=(e)=>{
-
-    console.log("inside home from education step == ", e)
-
-    setDegree(e.degree)
+   setDegree(e.degree)
     setSpecialization(e.specialization)
     populatePrereq();
-    //if(prereq.length>0)
     setStep((step+1)%5);
   }
 
@@ -140,7 +114,6 @@ function Home() {
     console.log(e.selectedCourses);
     setStep((step+1)%5);
   }
-
 
   return (
     <React.Fragment>  
